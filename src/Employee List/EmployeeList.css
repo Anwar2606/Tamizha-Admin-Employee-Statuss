@@ -1,0 +1,104 @@
+/* Table Container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+.edit-btn {
+  background-color: #009cec;      /* Green background */
+  color: white;                   /* White text */
+  border: none;                   /* Nao border */
+  padding: 8px 16px;              /* Some padding */
+  font-size: 14px;                /* Font size */
+  font-weight: 600;               /* Slightly bold */
+  border-radius: 5px;             /* Rounded corners */
+  cursor: pointer;                /* Pointer on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.edit-btn:hover {
+  background-color: #009cec;      /* Darker green on hover */
+  transform: scale(1.05);         /* Slight zoom */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.24);
+}
+
+.edit-btn:active {
+  background-color: #009cec;      /* Even darker green on click */
+  transform: scale(0.98);         /* Slight press down effect */
+}
+
+/* Stylish Table */
+.custom-table {
+    width: 180%;
+    max-width: 1600px; /* Limits table width for better aesthetics */
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+   
+    transition: box-shadow 0.3s ease-in-out;
+}
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    margin-bottom: 15px;
+}
+
+/* Add Employee Button */
+.add-employee-btn {
+    background-color: #009cec;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.add-employee-btn:hover {
+    background-color: #007bb5;
+    transform: scale(1.05);
+}
+
+/* Table Hover Shadow Effect */
+.custom-table:hover {
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3); /* Adds depth on hover */
+}
+
+.custom-table thead {
+    background-color: #009cec;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.custom-table thead th {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.custom-table tbody tr {
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f1f1 !important;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.custom-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}

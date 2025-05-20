@@ -1,0 +1,49 @@
+.attendance-container {
+  display: flex;
+}
+
+.attendance-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 280px; /* Adjust based on Sidebar width */
+}
+
+.attendance-heading {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.attendance-date-input {
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-table-head {
+  background-color: #007bff;
+  color: white;
+}
+
+.attendance-th,
+.attendance-td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.attendance-table-body tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.attendance-row:hover {
+  background-color: #e6f7ff;
+  cursor: pointer;
+}

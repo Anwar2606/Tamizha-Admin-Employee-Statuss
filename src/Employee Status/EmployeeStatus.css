@@ -1,0 +1,74 @@
+.employee-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.employee-sidebar {
+  width: 220px;
+  background-color: #2f3e46;
+  color: #fff;
+}
+
+.employee-main {
+    margin-left: 20px;
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.employee-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1d3557;
+}
+
+.employee-filter-label {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.employee-filter-input {
+  margin-left: 10px;
+  padding: 6px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.employee-table th {
+  background-color: #1d3557;
+  color: #fff;
+  padding: 12px 15px;
+  text-align: left;
+ 
+}
+
+.employee-table td {
+  background-color: #ffffff;
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+.employee-table tbody tr:hover td {
+  background-color: #f1f1f1;
+}
+
+.employee-empty {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  background-color: #fff;
+  border-radius: 8px;
+}

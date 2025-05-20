@@ -1,0 +1,74 @@
+/* Container and layout */
+.clickup-container {
+  display: flex;
+}
+
+.clickup-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 280px; /* Adjust if your Sidebar width is different */
+}
+
+/* Header */
+.clickup-title {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Date input */
+.clickup-date-picker {
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Table */
+.clickup-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table head */
+.clickup-table thead {
+  background-color: #1e293b;
+  color: white;
+}
+
+/* Table cells */
+.clickup-table th,
+.clickup-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+/* Even rows background */
+.clickup-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect on rows */
+.clickup-table tbody tr:hover {
+  background-color: #e6f7ff;
+  cursor: pointer;
+}
+
+/* Optional: style for status badges */
+.clickup-badge.yes {
+  color: #155724;
+  background-color: #d4edda;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.clickup-badge.no {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
