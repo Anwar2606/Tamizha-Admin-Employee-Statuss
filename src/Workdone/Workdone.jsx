@@ -35,7 +35,7 @@ const Workdone = () => {
     const updatedData = await Promise.all(
       empData.map(async (emp) => {
         const dailyDocId = `${emp.id}_${formattedDate}`;
-        const statusSnap = await getDoc(doc(db, "clickup", dailyDocId));
+        const statusSnap = await getDoc(doc(db, "workdone", dailyDocId));
         return {
           ...emp,
           status: statusSnap.exists() && statusSnap.data().status

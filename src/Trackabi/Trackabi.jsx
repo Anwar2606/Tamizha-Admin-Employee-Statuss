@@ -56,7 +56,7 @@ const Trackabi = () => {
       const currentDateFormatted = selectedDate.split("-").reverse().join("-");
       const dailyDocId = `${id}_${currentDateFormatted}`;
 
-      await setDoc(doc(db, "clickup", dailyDocId), {
+      await setDoc(doc(db, "trackabi", dailyDocId), {
         name: selectedEmp.name,
         designation: selectedEmp.designation,
         status: value,  // value can be "" when selecting "Select Status"
