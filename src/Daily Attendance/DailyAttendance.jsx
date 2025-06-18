@@ -198,16 +198,18 @@ const DailyAttendance = () => {
                   <td>{emp.name}</td>
                   <td>
                     <select
-                      value={emp.status}
-                      onChange={(e) =>
-                        handleAttendanceChange(emp.id, emp.name, e.target.value)
-                      }
-                    >
-                      <option value="Select Status">Select Status</option>
-                      <option value="Present">Present</option>
-                      <option value="Absent">Absent</option>
-                      <option value="Half Day">Half Day</option>
-                    </select>
+  value={emp.status}
+  onChange={(e) =>
+    handleAttendanceChange(emp.id, emp.name, e.target.value)
+  }
+>
+  <option value="Select Status">Select Status</option>
+  <option value="Present">Present</option>
+  <option value="Absent">Absent</option>
+  <option value="Half Day">Half Day</option>
+  <option value="Casual Leave">Casual Leave</option> {/* ✅ Added */}
+</select>
+
                   </td>
                   <td>{selectedDate.split("-").reverse().join("-")}</td>
                   <td>
