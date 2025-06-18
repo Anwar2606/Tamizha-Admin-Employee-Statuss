@@ -15,15 +15,15 @@ const EmployeeTable = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const [clickupData, setClickupData] = useState([]);
   const [trackabiData, setTrackabiData] = useState([]);
-  const [workdoneData, setWorkdoneData] = useState([]); // <-- new state for workdone
+  const [workdoneData, setWorkdoneData] = useState([]);
+const [sundayCount, setSundayCount] = useState(0);
 
   const [selectedMonth, setSelectedMonth] = useState(dayjs().format("YYYY-MM"));
   const [statusCounts, setStatusCounts] = useState({});
   const [clickupCountsByName, setClickupCountsByName] = useState({});
   const [trackabiCountsByName, setTrackabiCountsByName] = useState({});
-  const [workdoneCountsByName, setWorkdoneCountsByName] = useState({}); // <-- new counts state
+  const [workdoneCountsByName, setWorkdoneCountsByName] = useState({});
 
-  // Fetch employees
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -40,7 +40,6 @@ const EmployeeTable = () => {
     fetchEmployees();
   }, []);
 
-  // Fetch attendance
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
@@ -57,7 +56,6 @@ const EmployeeTable = () => {
     fetchAttendanceData();
   }, []);
 
-  // Fetch clickup data
   useEffect(() => {
     const fetchClickupData = async () => {
       try {
@@ -74,7 +72,6 @@ const EmployeeTable = () => {
     fetchClickupData();
   }, []);
 
-  // Fetch trackabi data
   useEffect(() => {
     const fetchTrackabiData = async () => {
       try {
@@ -91,7 +88,6 @@ const EmployeeTable = () => {
     fetchTrackabiData();
   }, []);
 
-  // Fetch workdone data (NEW)
   useEffect(() => {
     const fetchWorkdoneData = async () => {
       try {
@@ -108,7 +104,6 @@ const EmployeeTable = () => {
     fetchWorkdoneData();
   }, []);
 
-  // Calculate attendance counts grouped by employeeId
   useEffect(() => {
     if (!attendanceData.length) return;
 
@@ -130,6 +125,8 @@ const EmployeeTable = () => {
         status = "present";
       } else if (rawStatus === "absent") {
         status = "absent";
+      } else if (rawStatus === "casual leave" || rawStatus === "cl") {
+        status = "casualleave";
       } else {
         return;
       }
@@ -153,7 +150,7 @@ const EmployeeTable = () => {
       const empId = item.employeeId;
 
       if (!counts[empId]) {
-        counts[empId] = { present: 0, absent: 0, halfday: 0 };
+        counts[empId] = { present: 0, absent: 0, halfday: 0, casualleave: 0 };
       }
 
       counts[empId][status]++;
@@ -162,7 +159,6 @@ const EmployeeTable = () => {
     setStatusCounts(counts);
   }, [attendanceData, selectedMonth]);
 
-  // Calculate clickup "yes" counts grouped by name
   useEffect(() => {
     if (!clickupData.length) return;
 
@@ -202,7 +198,6 @@ const EmployeeTable = () => {
     setClickupCountsByName(counts);
   }, [clickupData, selectedMonth]);
 
-  // Calculate trackabi "yes" counts grouped by name
   useEffect(() => {
     if (!trackabiData.length) return;
 
@@ -242,7 +237,6 @@ const EmployeeTable = () => {
     setTrackabiCountsByName(counts);
   }, [trackabiData, selectedMonth]);
 
-  // Calculate workdone "yes" counts grouped by name (NEW)
   useEffect(() => {
     if (!workdoneData.length) return;
 
@@ -281,72 +275,95 @@ const EmployeeTable = () => {
 
     setWorkdoneCountsByName(counts);
   }, [workdoneData, selectedMonth]);
+useEffect(() => {
+  const [year, month] = selectedMonth.split("-").map(Number);
+  let count = 0;
+
+  // JS months are 0-indexed
+  const date = new Date(year, month - 1, 1);
+
+  while (date.getMonth() === month - 1) {
+    if (date.getDay() === 0) {
+      count++;
+    }
+    date.setDate(date.getDate() + 1);
+  }
+
+  setSundayCount(count);
+}, [selectedMonth]);
 
   return (
-   <div className="employee-container">
-  <div className="employee-sidebar">
-    <Sidebar />
-  </div>
+    <div className="employee-container">
+      <div className="employee-sidebar">
+        <Sidebar />
+      </div>
 
-  <main className="employee-main">
-    <h2 className="employee-title">Employee Attendance Summary</h2>
+      <main className="employee-main">
+        <h2 className="employee-title">Employee Attendance Summary</h2>
 
-    <label className="employee-filter-label">
-      Filter by Month:{" "}
-      <input
-        type="month"
-        value={selectedMonth}
-        onChange={(e) => setSelectedMonth(e.target.value)}
-        className="employee-filter-input"
-      />
-    </label>
+        <label className="employee-filter-label">
+  Filter by Month:{" "}
+  <input
+    type="month"
+    value={selectedMonth}
+    onChange={(e) => setSelectedMonth(e.target.value)}
+    className="employee-filter-input"
+  />
+</label>
 
-    <table className="employee-table">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>Name</th>
-          <th>Present</th>
-          <th>Absent</th>
-          <th>Tardy</th>
-          <th>ClickUp</th>
-          <th>Trackabi</th>
-          <th>Workdone</th>
-        </tr>
-      </thead>
-      <tbody>
-        {employees.length === 0 ? (
-          <tr>
-            <td colSpan={8} className="employee-empty">
-              No employees found.
-            </td>
-          </tr>
-        ) : (
-          employees.map((emp, index) => {
-            const attendance = statusCounts[emp.id] || {
-              present: 0,
-              absent: 0,
-              halfday: 0,
-            };
-            return (
-              <tr key={emp.id}>
-                <td>{index + 1}</td>
-                <td>{emp.name}</td>
-                <td>{attendance.present}</td>
-                <td>{attendance.absent}</td>
-                <td>{attendance.halfday}</td>
-                <td>{clickupCountsByName[emp.name] || 0}</td>
-                <td>{trackabiCountsByName[emp.name] || 0}</td>
-                <td>{workdoneCountsByName[emp.name] || 0}</td>
+<p className="employee-sundays">
+  Number of Sundays in {selectedMonth}: <strong>{sundayCount}</strong>
+</p>
+
+        <table className="employee-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Tardy</th>
+              <th>Casual Leave</th>
+              
+              <th>ClickUp</th>
+              <th>Trackabi</th>
+              <th>Workdone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.length === 0 ? (
+              <tr>
+                <td colSpan={9} className="employee-empty">
+                  No employees found.
+                </td>
               </tr>
-            );
-          })
-        )}
-      </tbody>
-    </table>
-  </main>
-</div>
-
+            ) : (
+              employees.map((emp, index) => {
+                const attendance = statusCounts[emp.id] || {
+                  present: 0,
+                  absent: 0,
+                  halfday: 0,
+                  casualleave: 0,
+                };
+                return (
+                  <tr key={emp.id}>
+                    <td>{index + 1}</td>
+                    <td>{emp.name}</td>
+                    <td>{attendance.present}</td>
+                    <td>{attendance.absent}</td>
+                    <td>{attendance.halfday}</td>
+                    <td>{attendance.casualleave}</td>
+                    <td>{clickupCountsByName[emp.name] || 0}</td>
+                    <td>{trackabiCountsByName[emp.name] || 0}</td>
+                    <td>{workdoneCountsByName[emp.name] || 0}</td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </main>
+    </div>
   );
 };
 

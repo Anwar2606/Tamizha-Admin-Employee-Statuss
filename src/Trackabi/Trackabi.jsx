@@ -135,7 +135,7 @@ const Trackabi = () => {
                 <td>{emp.name}</td>
                 <td>{emp.designation}</td>
                 <td>
-                 <select
+                        <select
   value={emp.status ?? ""}
   onChange={(e) => handleStatusChange(emp.id, e.target.value)}
   className="clickup-dropdown"
@@ -145,7 +145,6 @@ const Trackabi = () => {
   <option value="no">Incomplete</option>
   <option value="leave">Leave</option> {/* ✅ New Option Added */}
 </select>
-
                   {saving === emp.id && (
                     <span className="clickup-saving-text">Saving...</span>
                   )}
