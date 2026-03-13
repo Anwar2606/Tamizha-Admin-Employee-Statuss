@@ -14,11 +14,13 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Show intro screen for 4 seconds
-  useEffect(() => {
-    setTimeout(() => {
-      setShowIntro(false);
-    }, 4000);
-  }, []);
+ useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowIntro(false);
+  }, 6000); // 6 seconds
+
+  return () => clearTimeout(timer);
+}, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -46,7 +48,7 @@ const Login = () => {
         }}
       >
         <h1 style={{ fontSize: "60px", fontWeight: "bold", letterSpacing: "2px" }}>
-          Billing Software
+          Attendance Software
         </h1>
 
         <p style={{ fontSize: "28px", marginTop: "20px" }}>
