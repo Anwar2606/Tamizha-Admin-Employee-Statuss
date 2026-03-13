@@ -1,11 +1,11 @@
 // src/pages/Login.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap Import
+import "bootstrap/dist/css/bootstrap.min.css";
 import companyLogo from "../assets/Tss-logo.png";
 import bgImage from "../assets/login-background.jpg";
 
@@ -13,6 +13,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // Show message initially
+  useEffect(() => {
+    toast.info("This software was created by our Ex MD - Anwar", {
+      position: "top-center",
+      autoClose: 4000,
+    });
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -36,11 +44,14 @@ const Login = () => {
       }}
     >
       <div className="card shadow-lg p-4 bg-white bg-opacity-90" style={{ maxWidth: "400px", width: "100%" }}>
-         {/* Company Logo */}
-         <div className="text-center mb-3">
+        
+        {/* Company Logo */}
+        <div className="text-center mb-3">
           <img src={companyLogo} alt="Company Logo" style={{ width: "120px" }} />
         </div>
+
         <h2 className="text-center fw-bold text-dark">Login</h2>
+
         <form onSubmit={handleLogin} className="mt-3">
           <div className="mb-3">
             <input
@@ -52,6 +63,7 @@ const Login = () => {
               required
             />
           </div>
+
           <div className="mb-3">
             <input
               type="password"
@@ -62,10 +74,12 @@ const Login = () => {
               required
             />
           </div>
+
           <button type="submit" className="btn btn-primary w-100">
             Login
           </button>
-        </form>                                                                                                     
+        </form>
+
       </div>
     </div>
   );
